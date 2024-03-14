@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  password     String
+  fullName     String
+  createdAt    DateTime @default(now())
+  tasks        Task[]
+  userImageUrl String?
+  role         String
+  score        Int      @default(0)
+}
+
+model Task {
+  id          Int        @id @default(autoincrement())
+  title       String?
+  description String?
+  createdAt   DateTime   @default(now())
+  userId      Int?
+  user        User?      @relation(fields: [userId], references: [id])
+  completed   Boolean    @default(false)
+  questions   Question[]
+  role        String?
+}
+
+model Question {
+  id                 Int      @id @default(autoincrement())
+  question           String
+  correctAnswerIndex Int
+  options            Option[]
+  taskId             Int
+  task               Task     @relation(fields: [taskId], references: [id])
+}
+
+model Option {
+  id         Int      @id @default(autoincrement())
+  text       String
+  isCorrect  Boolean  @default(false)
+  questionId Int
+  question   Question @relation(fields: [questionId], references: [id])
+}
+
+model image {
+  id       Int    @id @default(autoincrement())
+  imageUrl String
+}

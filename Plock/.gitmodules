@@ -1,0 +1,3 @@
+[submodule "Plock"]
+	path = Plock
+	url = https://github.com/LucasEdwa/Plock
