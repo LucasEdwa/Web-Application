@@ -1,6 +1,6 @@
 // File: route.js (assuming this is where your POST endpoint is defined)
 const express = require('express');
-const fileUpload = require('express-fileupload');
+
 const { PrismaClient } = require('@prisma/client');
 const { verifyToken } = require('../middlewares/authMiddleware');
 const path = require('path');
