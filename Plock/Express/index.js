@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const router = express.Router();
+const fileUpload = require(express-fileupload);
 
 
 const app = express();
@@ -11,10 +12,10 @@ const userRouter = require('./routes/get-current-user/user');
 const taskRouter = require('./routes/task/task');
 const bannerRouter = require('./routes/banners/banner.js');
 const answerRouter = require('./routes/answers/answer');
-const fileUpload = require('./routes/upload-profile-img/route.js');
+const fileUploadRouter = require('./routes/upload-profile-img/route.js');
 
 
-
+app.use(fileUpload());
 app.use(cors());
 app.use(express.json());
 
@@ -26,7 +27,7 @@ app.use('/api', userRouter);
 app.use('/api', taskRouter);
 app.use('/api', bannerRouter);
 app.use('/api', answerRouter);
-app.use('/api', fileUpload);
+app.use('/api', fileUploadRouter);
 
 app.use(router);
 
