@@ -9,7 +9,7 @@ const prisma = new PrismaClient();
 const router = express.Router();
 
 
-router.patch('/upload-profile-picture', verifyToken, async (req, res) => {
+router.post('/upload-profile-picture', verifyToken, async (req, res) => {
     
     if (!req.files) {
         return res.status(400).send({ error: "No file uploaded." });
