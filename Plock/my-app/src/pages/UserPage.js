@@ -7,7 +7,7 @@ import { uploadPicture } from '../lib/mutations/upload-profile-picture/upload';
 export default function UserPage() {
     const { data: user, isLoading } = useQuery({ queryKey: ['user'], queryFn: getUser });
     const [showFileUpload, setShowFileUpload] = useState(false);
-    const [file, setFile] = useState(null);
+    const [userImageUrl, setUserImageUrl] = useState(null);
     const navigate = useNavigate();
     const [success, setSuccess] = useState('')
     const [error, setError] = useState('')
@@ -31,7 +31,7 @@ export default function UserPage() {
     }
 
     const onFileChange = (event) => {
-        setFile(event.target.files[0]);
+        setUserImageUrl(event.target.files[0]);
         
     }
 
@@ -67,7 +67,7 @@ export default function UserPage() {
                                 <input type="file" onChange={onFileChange} className="rounded-full bg-slate-900" aria-label="Upload profile picture" />
                                 {error? <p className="p-2 w-full rounded-xl bg-red-500 ">{error}</p>:null}
                                 {success? <p className="p-2 w-full rounded-xl bg-green-500 ">{success}</p>:null}
-                                <button onClick={() => mutation.mutate(file)} className="btn bg-blue-500 text-white rounded p-1">
+                                <button onClick={() => mutation.mutate(userImageUrl)} className="btn bg-blue-500 text-white rounded p-1">
                                     Upload
                                 </button>
                             </div>

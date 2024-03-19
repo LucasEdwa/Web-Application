@@ -1,9 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getUser } from '../lib/queries/get-current-user/getUser';
 import { getBanner } from '../lib/queries/get-home-banners/getBanner';
-
+/** 
+ * BaseUrl is my files path in server from file upload from client side
+ * 
+ */
 
 const BASE_URL = 'http://localhost:4000';
 

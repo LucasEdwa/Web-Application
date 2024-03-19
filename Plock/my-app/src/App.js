@@ -6,13 +6,15 @@ import Signup from './pages/Authantication/SignUp';
 import Signin from './pages/Authantication/SignIn';
 import Footer from './components/Footer';
 import TasksPage from './pages/Tasks/TasksPage';
-import {UserProvider}  from './context/UserContext';
 import Task from './pages/Tasks/Task';
 import Tasks from './components/Tasks';
 import UserPage from './pages/UserPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 //import ScorePanel from './components/ScorePanel';
+/** Hre i use router-dom to make routes to my pages
+ * added QueryClientProvider to provide the queryClient to the rest of the app
+ */
 const queryClient = new QueryClient();
 
 function App() {
@@ -20,7 +22,6 @@ function App() {
     <main className="app ">
       <QueryClientProvider client={queryClient}>
     
-      <UserProvider>
          <Navbar />
         <Routes>
           <Route path="/" element={<><Home /></>} />
@@ -33,7 +34,6 @@ function App() {
 
         </Routes>
         <Footer />
-      </UserProvider>
       </QueryClientProvider>
 
     </main>

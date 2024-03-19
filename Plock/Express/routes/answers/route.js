@@ -1,10 +1,17 @@
-// answerRoutes.js
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
 const router = express.Router();
 const prisma = new PrismaClient();
 
-// POST /api/answers
+
+/**
+ * 
+ * This page is responsible for handling requests related to answers.
+ * Submit with selected option being a question option id and the task id¨
+ * Creating the body of the answer with the user id, question id, option id and task id
+ * and the boolean value of the answer being correct or not
+ * and getting the answers by user id and is correct filter
+ */
 router.post('/submit-task', async (req, res) => {
     const { userId, questionId, optionId, taskId } = req.body;
 
@@ -61,10 +68,13 @@ router.post('/submit-task', async (req, res) => {
 });
 
 router.get('/get-answers', async (req, res) => {
+
+
     const userId = req.query.userId ? parseInt(req.query.userId) : undefined;
+
     const isCorrect = req.query.isCorrect === 'false' ? false : undefined;
 
-    if (req.query.userId && isNaN(userId)) {
+    if (req.query.userId && parseInt(userId)) {
         return res.status(400).json({ error: 'Invalid user ID' });
     }
 

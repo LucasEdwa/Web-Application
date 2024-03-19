@@ -11,7 +11,10 @@ export default function SignUp() {
         role: "" // Added role to formData
     });
     const [error, setError] = useState("");
-
+/**Still using fetching to signUp 
+ * TODO: use mutation to signUp @tanstack/react-query
+ * 
+ */
     const signUp = async (e) => {
         e.preventDefault(); // Prevent default form submission behavior
 

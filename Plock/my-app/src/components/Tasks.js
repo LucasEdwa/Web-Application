@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getTasks } from "../lib/queries/get-tasks/[role]/getTasks";
+import { getTasks } from "../lib/queries/get-tasks/getTasks";
 import { getUser } from "../lib/queries/get-current-user/getUser";
 
 function Tasks() {
     const { data: user, isLoading: isUserLoading, isError: isUserError } = useQuery({
-        queryKey: 'user',
+        queryKey:['user'],
         queryFn: getUser
     });
     
     const { data: tasks, isLoading: isTasksLoading, isError: isTasksError } = useQuery({
-        queryKey: 'tasks',
+        queryKey: ['tasks'],
         queryFn: getTasks,
     });
     if (isUserLoading || isTasksLoading) {

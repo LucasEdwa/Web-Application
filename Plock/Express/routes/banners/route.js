@@ -4,7 +4,11 @@ const { PrismaClient } = require('@prisma/client');
 const fileUpload = require('express-fileupload');
 
 const prisma = new PrismaClient();
-
+/**
+ * Specific route for handling requests related to banners, just the same as the profile images 
+ * but leving the the file in images and not images/profile path.
+ * 
+ */
 // Manage banners home
 router.post('/create-banner-image', async (req, res) => {
     // Check if a file was uploaded

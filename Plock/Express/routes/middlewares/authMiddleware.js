@@ -1,6 +1,12 @@
-  
-const jwt = require('jsonwebtoken');
 
+const jwt = require('jsonwebtoken');
+/**Middleware to create Jsonwebtoken */
+
+
+/** Variable with jwt fuction to create and decode userId
+ * # I tried to use the same function to decode the token and get the role of 
+ * the user to filter the tasks by role.
+ */
 const verifyToken = (req, res, next) => {
     const token = req.headers['x-access-token'];
     if (!token) {
@@ -21,7 +27,4 @@ const verifyToken = (req, res, next) => {
 
 
 
-module.exports = {
-    verifyToken,
-    
-};
+module.exports = {verifyToken};

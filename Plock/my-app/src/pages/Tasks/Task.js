@@ -1,31 +1,39 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { getTasks } from '../../lib/queries/get-tasks/[role]/getTasks';
+import { getTaskById } from '../../lib/queries/get-task/[id]/getTaskById';
 import { getUser } from '../../lib/queries/get-current-user/getUser';
 import { submitTask } from '../../lib/mutations/submit-task/submitTask';
+import { useParams } from 'react-router-dom'
 
 const TaskPage = () => {
     const [userAnswers, setUserAnswers] = useState([]);
-    const [taskId, setTaskId] = useState(null);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
-    const { data: user, isLoading: isUserLoading } = useQuery('user', getUser);
-    const role = user?.role;
+    const { data: user, isLoading: isUserLoading } = useQuery({ 
+        queryKey: ['user'], 
+        queryFn: getUser }
+        );
 
-    const { data: task, isSuccess: isTaskLoading } = useQuery( {queryKey: ['task'], queryFn:() => getTasks(role)}, {
-        onSuccess: (data) => {
-            setTaskId(data.id);
-        }
+    
+    const { taskId } = useParams();
+    const taskIdNumber = Number(taskId);
+    
+    const { data: task, isSuccess: isTaskLoading } = useQuery({ 
+        queryKey: ['task', taskId], 
+        queryFn: () => isNaN(taskIdNumber) ? Promise.reject(new Error('Invalid task ID')) : getTaskById(taskIdNumber),
+        enabled: taskId !== null,
     });
     
-    const mutation = useMutation(submitTask, {
+    const mutation = useMutation({
+        mutationFn:(data) => submitTask(data),
         onSuccess: () => {
             console.log('Task submitted successfully');
         },
         onError: (error) => {
             console.error('Failed to submit task:', error);
-        }
-    });
+        }}
+    );
+
 
     const handleAnswerChange = (optionIndex) => {
         setUserAnswers(prev => {
@@ -43,11 +51,11 @@ const TaskPage = () => {
         }
     };
 
-    if (isUserLoading || isTaskLoading) {
-        return <div>Loading...</div>;
-    }
-
-    const currentQuestion = task.questions[currentQuestionIndex];
+  
+if (isUserLoading || isTaskLoading || !task) {
+    return <div>Loading...</div>;
+}
+const currentQuestion = task.questions[currentQuestionIndex];
 
     return (
         <div className="plock-body flex justify-center bg-slate-700 text-white h-screen">

@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getUser } from '../lib/queries/get-current-user/getUser';
 

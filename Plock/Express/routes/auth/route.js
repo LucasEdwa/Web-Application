@@ -1,14 +1,19 @@
 const express = require('express');
 const router = express.Router();
+
 const { PrismaClient } = require('@prisma/client');
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+
 const emailValidator = require('email-validator');
 const passwordValidator = require('password-validator');
 
 const prisma = new PrismaClient();
 const schema = new passwordValidator();
+
 //  Authentification
+
 router.post('/sign-up', async (req, res) => {
     const { email, password, fullName, role } = req.body;
 
@@ -34,6 +39,7 @@ router.post('/sign-up', async (req, res) => {
         .is().not().oneOf(['Passw0rd', 'Password123']); // Blacklist these values
 
     // Validate password
+
     const passwordValid = schema.validate(password);
     if (!passwordValid) {
         return res.status(400).json({ error: 'Invalid password' });
@@ -105,4 +111,5 @@ router.post('/sign-in', async (req, res) => {
         return res.status(500).json({ error: 'An error occurred during the sign-in process.' });
     }
 });
+
 module.exports = router;

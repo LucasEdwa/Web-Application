@@ -1,42 +1,50 @@
-// File: route.js (assuming this is where your POST endpoint is defined)
 const express = require('express');
 const fileUpload = require('express-fileupload');
-const { PrismaClient } = require('@prisma/client');
+const router = express.Router();
 const { verifyToken } = require('../middlewares/authMiddleware');
 const path = require('path');
 
-const prisma = new PrismaClient();
-const router = express.Router();
+router.use(fileUpload());
+/** having a problem with update profile pic after tanStacking and router organization. 
+ * Getting {404/badRequest} */
 
-
-router.patch('/upload-profile-picture', verifyToken, async (req, res) => {
-    
-    if (!req.files) {
+router.post('/upload-profile-picture', verifyToken, async (req, res) => {
+    if (!req.files || !req.files.userImageUrl) {
         return res.status(400).send({ error: "No file uploaded." });
     }
-    
-    const imageFile = req.files.userImageUrl;
 
-    
-    imageFile.mv(`${__dirname}/images/${imageFile.name}`, async (error) => {
+    const file = req.files.userImageUrl;
+
+    if (!file.name) {
+        return res.status(400).send({ error: "File name is missing." });
+    }
+
+    const filePath = path.join(__dirname, 'images/profile', file.name);
+
+    file.mv(filePath, async (error) => {
         if (error) {
+
             console.error(error);
-            res.status(500).send({ error: "An error occurred while uploading your image." });
-            return;
+            return res.status(500).send({ error: "An error occurred while uploading your image." });
+            
         }
 
-        // Create a new country entry in the database with the image path
-        const image = await prisma.country.update({
-            where: {
-                id: req.userId
-            },
-            data: {
-                userImageUrl: '/images/profile/' + imageFile.name
-            }
-        });
+        try {
+            await prisma.user.update({
+                where: { id: req.userId },
+                data: {
+                    userImageUrl: `images/profile/${file.name}`
+                }
+            });
 
-        res.send({success: "file"+ imageFile.name + " added successfully"});
+        } catch (error) {
+
+            console.error(error);
+            return res.status(500).send({ error: "An error occurred while saving the image data." });
+        }
+
+        res.send({ success: "Profile picture uploaded successfully." });
     });
 });
 
-module.exports = router;
+module.exports =  router
