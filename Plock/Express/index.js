@@ -7,22 +7,12 @@ const fileUpload = require('express-fileupload');
 
 const app = express();
 
-<<<<<<< HEAD
 const authRouter = require('./routes/auth/route');
 const userRouter = require('./routes/get-current-user/route');
 const taskRouter = require('./routes/task/route');
 const bannerRouter = require('./routes/banners/route');
 const answerRouter = require('./routes/answers/route');
 const uploadProfileImg = require('./routes/upload-profile-img/route');
-
-=======
-const authRouter = require('./routes/auth/auth');
-const userRouter = require('./routes/get-current-user/user');
-const taskRouter = require('./routes/task/task');
-const bannerRouter = require('./routes/banners/banner.js');
-const answerRouter = require('./routes/answers/answer');
-const fileUploadRouter = require('./routes/upload-profile-img/route.js');
->>>>>>> 6916070ac1f576776dc74ef01737d44b15082807
 
 
 app.use(fileUpload());
@@ -38,11 +28,10 @@ app.use('/api', userRouter);
 app.use('/api', taskRouter);
 app.use('/api', bannerRouter);
 app.use('/api', answerRouter);
-<<<<<<< HEAD
+
 app.use('/api', uploadProfileImg);
-=======
-app.use('/api', fileUploadRouter);
->>>>>>> 6916070ac1f576776dc74ef01737d44b15082807
+
+
 
 app.use(router);
 
