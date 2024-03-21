@@ -1,5 +1,7 @@
 In this small react project i use packages like:
-backEnd: 
+
+backEnd:
+
 - Prisma
 - Express
 - email and password validator
@@ -8,13 +10,15 @@ backEnd:
 - CORS
 
 frontEnd:
--TanStack query
--React-router-dom
--axios
--TailWindCss
+
+- TanStack query
+- React-router-dom
+- axios
+- TailWindCss
 
 #Todo
--check problems with profile picture upload
--Check fetching from taskByID
+- Finish tanStackin'
+- check problems with profile picture upload (Solved)
+- Check fetching from taskByID
 - check score function
-- implamantation get-task-by-role
+- implementation get-task-by-role
