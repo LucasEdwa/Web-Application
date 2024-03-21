@@ -20,4 +20,4 @@ frontEnd:
 - check problems with profile picture upload (Solved)
 - Check fetching from taskByID
 - check score function
-- implemantation get-task-by-role
+- implementation get-task-by-role
