@@ -17,6 +17,7 @@ frontEnd:
 - TailWindCss
 
 #Todo
+- Finish tanStackin'
 - check problems with profile picture upload (Solved)
 - Check fetching from taskByID
 - check score function
