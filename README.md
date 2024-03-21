@@ -14,7 +14,7 @@ frontEnd:
 -TailWindCss
 
 #Todo
--check problems with profile picture upload (Solved)
--Check fetching from taskByID
+- check problems with profile picture upload (Solved)
+- Check fetching from taskByID
 - check score function
 - implamantation get-task-by-role
