@@ -49,8 +49,7 @@ export default function UserPage() {
                         <h1 className="font-semibold text-2xl">User Page</h1>
                         {!showFileUpload ? (
                             <>
-                                <img src={`http://localhost:4000/${user.user?.userImageUrl}`} alt="Profile" className="w-[5rem] rounded-full" />
-                                <h5 className="text-xs">Ändrar bilden <Link onClick={() => setShowFileUpload(true)}>klick här!</Link></h5>
+                                <img src={`http://localhost:4000/${user.user?.userImageUrl}`} alt="Profile" className="w-[8rem] rounded-full" />                                <h5 className="text-xs">Ändrar bilden <Link onClick={() => setShowFileUpload(true)}>klick här!</Link></h5>
                                 <p className="font-semibold">Välkommen, <br></br>{user.user.fullName}!</p>
                                 <label className="font-semibold" htmlFor="email">Email:</label>
                                 <p>{user.user.email}</p>
@@ -61,9 +60,9 @@ export default function UserPage() {
                                 <button onClick={signOut} className="p-2 bg-red-500 text-white rounded">Sign Out</button>
                             </>
                         ) : (
-                            <div className="p-2 w-[26rem] flex flex-col gap-5 justify-center items-center">
+                            <div className="p-2  flex flex-col gap-5 justify-center items-center">
                                 <Link onClick={() => setShowFileUpload(false)}>Tillbaka</Link>
-                                <img src={`http://localhost:4000/${user.user.userImageUrl}`} alt="Profile" className="w-[5rem] rounded-full" />
+                                <img src={`http://localhost:4000/${user.user.userImageUrl}`} alt="Profile" className="w-[8rem] rounded-full" />
                                 <input type="file" onChange={onFileChange} className="rounded-full bg-slate-900" aria-label="Upload profile picture" />
                                 {error? <p className="p-2 w-full rounded-xl bg-red-500 ">{error}</p>:null}
                                 {success? <p className="p-2 w-full rounded-xl bg-green-500 ">{success}</p>:null}

@@ -19,10 +19,9 @@ app.use(fileUpload());
 app.use(cors());
 app.use(express.json());
 
-
+app.use('/images', express.static('C:\\Users\\Lucas\\Desktop\\MathemsUtbildingar\\plock\\express\\images'));
+app.use('/images/profile', express.static('C:\\Users\\Lucas\\Desktop\\MathemsUtbildingar\\plock\\express\\routes\\get-current-user\\images\\profile'));
 app.use('/uploads', express.static('uploads'));
-app.use('/images', express.static(path.join(__dirname, 'images')));
-app.use('/images/profile', express.static(path.join(__dirname, 'images/profile')));
 app.use('/api', authRouter);
 app.use('/api', userRouter);
 app.use('/api', taskRouter);

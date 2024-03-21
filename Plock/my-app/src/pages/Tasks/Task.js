@@ -15,8 +15,8 @@ const TaskPage = () => {
         );
 
     
-    const { taskId } = useParams();
-    const taskIdNumber = Number(taskId);
+        const { id: taskId } = useParams();
+        const taskIdNumber = Number(taskId);
     
     const { data: task, isSuccess: isTaskLoading } = useQuery({ 
         queryKey: ['task', taskId], 
