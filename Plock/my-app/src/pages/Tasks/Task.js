@@ -14,15 +14,15 @@ const TaskPage = () => {
         queryFn: getUser }
         );
 
-    
+        /**solved with the specifying taskId and id. because the route is :id  */
         const { id: taskId } = useParams();
         const taskIdNumber = Number(taskId);
     
-    const { data: task, isSuccess: isTaskLoading } = useQuery({ 
-        queryKey: ['task', taskId], 
-        queryFn: () => isNaN(taskIdNumber) ? Promise.reject(new Error('Invalid task ID')) : getTaskById(taskIdNumber),
-        enabled: taskId !== null,
-    });
+        const { data: task, isLoading: isTaskLoading } = useQuery({ 
+            queryKey: ['task', taskId], 
+            queryFn: () => isNaN(taskIdNumber) ? Promise.reject(new Error('Invalid task ID')) : getTaskById(taskIdNumber),
+            enabled: taskId !== null,
+        });
     
     const mutation = useMutation({
         mutationFn:(data) => submitTask(data),
@@ -53,20 +53,21 @@ const TaskPage = () => {
 
   
 if (isUserLoading || isTaskLoading || !task) {
-    return <div>Loading...</div>;
+    return <div className="h-screen text-center mt-8">Loading...</div>;
 }
 const currentQuestion = task.questions[currentQuestionIndex];
 
     return (
         <div className="plock-body flex justify-center bg-slate-700 text-white h-screen">
             {currentQuestion ? (
-                <div>
-                    <form onSubmit={handleSubmit}>
+                <div className="m-8 p-6">
+                    <form className=""onSubmit={handleSubmit}>
                         <p>{currentQuestionIndex + 1}. {currentQuestion.question}</p>
-                        <ul className="flex flex-col gap-6">
+                        <ul className="flex flex-col gap-6 w-[160px]">
                             {currentQuestion.options.map((option, optionIndex) => (
-                                <li key={optionIndex}>
+                                <li key={optionIndex} className="mt-10 w-full">
                                     <input
+                                        className="left-0"
                                         type="radio"
                                         id={`question_option${optionIndex}`}
                                         name="question"
@@ -77,8 +78,10 @@ const currentQuestion = task.questions[currentQuestionIndex];
                                     <label htmlFor={`question_option${optionIndex}`}>
                                         {String.fromCharCode(65 + optionIndex)}. {option.text}
                                     </label>
+                                    
                                 </li>
                             ))}
+                            <button type="submit" className="btn btn-primary">Next</button>
                         </ul>
                     </form>
                 </div>

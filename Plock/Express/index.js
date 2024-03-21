@@ -19,9 +19,10 @@ app.use(fileUpload());
 app.use(cors());
 app.use(express.json());
 
-app.use('/images', express.static('C:\\Users\\Lucas\\Desktop\\MathemsUtbildingar\\plock\\express\\images'));
-app.use('/images/profile', express.static('C:\\Users\\Lucas\\Desktop\\MathemsUtbildingar\\plock\\express\\routes\\get-current-user\\images\\profile'));
+app.use('/images', express.static(process.env.IMAGE_MIDDLEWARE_PATH));
+app.use('/images/profile', express.static(process.env.PROFILE_MIDDLEWARE_PATH));
 app.use('/uploads', express.static('uploads'));
+
 app.use('/api', authRouter);
 app.use('/api', userRouter);
 app.use('/api', taskRouter);
