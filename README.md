@@ -11,6 +11,7 @@ frontEnd:
 -TanStack query
 -React-router-dom
 -axios
+-TailWindCss
 
 #Todo
 -check problems with profile picture upload
