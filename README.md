@@ -1,5 +1,6 @@
 In this small react project i use packages like:
-backEnd: 
+backEnd:
+
 - Prisma
 - Express
 - email and password validator
@@ -8,10 +9,11 @@ backEnd:
 - CORS
 
 frontEnd:
--TanStack query
--React-router-dom
--axios
--TailWindCss
+
+- TanStack query
+- React-router-dom
+- axios
+- TailWindCss
 
 #Todo
 - check problems with profile picture upload (Solved)
