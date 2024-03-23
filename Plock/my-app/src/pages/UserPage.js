@@ -42,14 +42,14 @@ export default function UserPage() {
     }
 
     return (
-        <main className="h-screen items-center gap-4">
+        <main className="h-screen items-center gap-4 userPage">
             <div className="p-6">
                 <div className="flex justify-around w-full ">
                     <div className="p-4 flex flex-col gap-4 ">
                         <h1 className="font-semibold text-2xl">User Page</h1>
                         {!showFileUpload ? (
                             <>
-                                <img src={`http://localhost:4000/${user.user?.userImageUrl}`} alt="Profile" className="w-[8rem] rounded-full" />                                <h5 className="text-xs">Ändrar bilden <Link onClick={() => setShowFileUpload(true)}>klick här!</Link></h5>
+                                <img src={`http://localhost:4000/${user.user?.userImageUrl}`} alt="Profile" className="w-[8rem] userimage rounded-full" />                                <h5 className="text-xs">Ändrar bilden <Link onClick={() => setShowFileUpload(true)}>klick här!</Link></h5>
                                 <p className="font-semibold">Välkommen, <br></br>{user.user.fullName}!</p>
                                 <label className="font-semibold" htmlFor="email">Email:</label>
                                 <p>{user.user.email}</p>

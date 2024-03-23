@@ -20,11 +20,23 @@ const verifyToken = (req, res, next) => {
             // Assuming 'decoded' contains the user object with 'userId' and 'role'
             req.userId = decoded.userId;
             req.role = decoded.role;
+           // console.log('Role:', req.role); // Log the role
+            //console.log('User ID:', req.userId); // Log the user ID
             next();
         }
     });
 };
 
 
+const verifyRole = (req, res, next) => {
+    const userRole = req.role;
 
-module.exports = {verifyToken};
+    if (!userRole) {
+        return res.status(403).json({ error: 'Unauthorized' });
+    }
+
+    req.role = userRole;
+    next();
+    
+};
+module.exports = {verifyToken, verifyRole};

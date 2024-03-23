@@ -1,8 +1,8 @@
 import {api} from '../../axios';
 
-export const submitTask = async (taskId, submission) => {
+export const submitTask = async (data) => {
     try {
-        const response = await api.post(`/api/submit-task/${taskId}`, submission);
+        const response = await api.post(`/api/submit-task`, data);
         return response.data;
     } catch (error) {
         console.error('Error submitting task:', error);

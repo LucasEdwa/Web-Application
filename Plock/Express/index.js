@@ -22,7 +22,6 @@ app.use(express.json());
 app.use('/images', express.static(process.env.IMAGE_MIDDLEWARE_PATH));
 app.use('/images/profile', express.static(process.env.PROFILE_MIDDLEWARE_PATH));
 app.use('/uploads', express.static('uploads'));
-
 app.use('/api', authRouter);
 app.use('/api', userRouter);
 app.use('/api', taskRouter);

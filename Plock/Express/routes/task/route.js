@@ -72,7 +72,7 @@ router.patch('/tasks/:id', verifyToken,  async (req, res) => {
         return res.status(500).json({ error: 'Failed to complete task', details: error.message });
     }
 })
-router.get('/taskById/:taskId', verifyToken,  async (req, res) => {
+router.get('/taskById/:taskId', verifyToken, verifyRole, async (req, res) => {
 
     const taskId = parseInt(req.params.taskId, 10);
   
@@ -105,20 +105,22 @@ router.get('/taskById/:taskId', verifyToken,  async (req, res) => {
 
 /** wrong attempt to get task by Role trying to get the tasks in db 
  * then filter the tasks by role and return the filtered tasks
+ * i just couldve simplify the code by using the role in the where clause
+ * to filter the tasks by role it was missing the toUpperCase() method
  */
-router.get('/get-tasks', verifyToken,  async (req, res) => {
+router.get('/get-tasks', verifyToken, async (req, res) => {
+    const role = req.role.toUpperCase();
+
     try {
-        const tasks = await prisma.task.findMany();
+        const tasks = await prisma.task.findMany({
+            where: {
+                role: role
+            }
+        });
+
         return res.json(tasks);
     } catch (error) {
-        console.error(error);
-        if (error instanceof prisma.PrismaClientKnownRequestError) {
-            // Handle known Prisma errors
-            return res.status(500).json({ error: 'Database error', details: error.message });
-        } else {
-            // Handle unknown errors
-            return res.status(500).json({ error: 'Failed to fetch tasks', details: error.message });
-        }
+        handlePrismaError(res, error);
     }
 });
 
