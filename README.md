@@ -19,6 +19,6 @@ frontEnd:
 #Todo
 - Finish tanStackin'
 - check problems with profile picture upload (Solved)
-- Check fetching from taskByID (Solved)(# missing style)
+- Check fetching from taskByID (Solved)(# missing style midia)
 - check score function
-- implementation get-task-by-role
+- implementation get-task-by-role(solved)
