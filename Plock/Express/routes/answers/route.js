@@ -30,8 +30,8 @@ router.post('/submit-task', async (req, res) => {
         return res.status(404).json({ error: 'Option not found' });
     }
 
-    // Create answer in the database
-    const createdAnswer = await prisma.answer.create({
+     // Create answer in the database
+     const createdAnswer = await prisma.answer.create({
         data: {
             userId,
             questionId,
@@ -41,18 +41,20 @@ router.post('/submit-task', async (req, res) => {
         },
     });
 
+    let userScore = 0;
     // If the answer is correct, increment the user's score
     if (selectedOption.isCorrect) {
-        const userScore = await prisma.score.findFirst({
+        const score = await prisma.score.findFirst({
             where: { userId },
         });
 
-        if (userScore) {
+        if (score) {
             // Update the user's score
             await prisma.score.update({
-                where: { id: userScore.id },
-                data: { value: userScore.value + 1 },
+                where: { id: score.id },
+                data: { value: score.value + 1 },
             });
+            userScore = score.value + 1;
         } else {
             // Create a new score record for the user
             await prisma.score.create({
@@ -61,10 +63,11 @@ router.post('/submit-task', async (req, res) => {
                     userId,
                 },
             });
+            userScore = 1;
         }
     }
 
-    return res.status(201).json(createdAnswer);
+    return res.status(201).json({ answer: createdAnswer, score: userScore });
 });
 
 router.get('/get-answers', async (req, res) => {

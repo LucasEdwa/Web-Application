@@ -17,7 +17,8 @@ export default function Home() {
     const imageUrl1 = images?.[0]?.imageUrl;
     const imageUrl2 = images?.[1]?.imageUrl;
     const signOut = () => {
-        localStorage.removeItem('token');        
+        localStorage.removeItem('token');  
+        window.location.reload();      
         navigate('/');
     };
     return (

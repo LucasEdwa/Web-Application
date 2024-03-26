@@ -14,6 +14,7 @@ export default function SignIn() {
         onSuccess: (data) => {
             localStorage.setItem("token", data.token);
             navigate("/");
+            window.location.reload();
         },
     });
 

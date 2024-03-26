@@ -109,7 +109,7 @@ router.get('/taskById/:taskId', verifyToken, verifyRole, async (req, res) => {
  * to filter the tasks by role it was missing the toUpperCase() method
  */
 router.get('/get-tasks', verifyToken, async (req, res) => {
-    const role = req.role.toUpperCase();
+    const role = req.role
 
     try {
         const tasks = await prisma.task.findMany({

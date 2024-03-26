@@ -1,16 +1,15 @@
-import { api} from '../../axios';
+import { api } from '../../axios';
 
-export const  getUser = async () =>{
-
+export async function getUser() {
     try {
-        const response = await api.get('/api/current-user', {
-        
-            headers: {"x-access-token": localStorage.getItem("token")}
-        });
+        const response = await api.get('/api/current-user');
         return response.data;
     } catch (error) {
         console.error('Error fetching user data:', error);
-        throw new Error('Failed to fetch user data');
-    }    
-
-};
+        if (error.response && error.response.status === 500) {
+            throw new Error('Server error. Please try again later.');
+        } else {
+            throw error;
+        }
+    }
+}
