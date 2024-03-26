@@ -20,6 +20,6 @@ frontEnd:
 - Finish tanStackin'
 - check problems with profile picture upload (Solved)
 - Check fetching from taskByID (Solved)(# missing style midia)
-- check SighUp methode
+- check SighUp methode(solved)
 - check score function
 - implementation get-task-by-role(solved)
