@@ -5,6 +5,7 @@ backEnd:
 - Prisma
 - Express
 - email and password validator
+- bcrypt
 - jsonWebToken
 - express-fileUpload 
 - CORS
