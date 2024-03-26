@@ -17,7 +17,7 @@ frontEnd:
 - TailWindCss
 
 #Todo
-- Finish tanStackin'
+- Finish tanStackin'(solved)
 - check problems with profile picture upload (Solved)
 - Check fetching from taskByID (Solved)(# missing style midia)
 - check SighUp methode(solved)
