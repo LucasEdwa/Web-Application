@@ -19,10 +19,10 @@ frontEnd:
 
 #Todo
 - Finish tanStackin'(solved)
-- check problems with profile picture upload (Solved)
-- Check fetching from taskByID (Solved)
-- check SighUp methode(solved)
-- check score function(solved)
+- check problems with profile picture upload (Solved: Rebuilded path, images/profile. while images to banners )
+- Check fetching from taskbyId(Solved: where taskId include options)
+- check SighUp methode(solved: role input char)
+- check score function(solved: on submit-task end-point by creating answers based on seleceted option +  isCorrect)
 - Toast-notify setUp
 - midia to mobiles
-- implementation get-task-by-role(solved)
+- implementation get-task-by-role(solved: Where: role, with end-point macthing userTasks + tasks(byrole) to display roles tasks if not complete)
