@@ -19,25 +19,39 @@ function Tasks() {
 
     
     if (isUserLoading || isTasksLoading) {
-        return <div>Loading...</div>;
+        return(  <div className="text-center h-screen w-screen flex flex-col justify-center">
+                    <h2 className="text-2xl font-semibold">Loading...</h2>
+                </div>
+        );
     }
     
     
     if (isUserError || isTasksError || !user || !tasks) {
-        return <div>Error loading tasks</div>;
+        return <div className="text-center h-screen w-screen flex flex-col justify-center">
+        <h2 className="text-2xl font-semibold">Error loading tasks</h2>
+    </div>;
     }
-    console.log(user.role); // log the user role to the console
+
     return (
-        <div className="p-8">
-            <h1 className="text-2xl font-semibold mb-4">Tasks</h1>
-            <div className="grid grid-cols-5 gap-6">
-                {tasks?.map((task) => (
-                    <Task task={task} key={task.id} /> 
-                ))}
-            </div>
+        <div className="h-creen">{
+            
+            tasks.length > 0 ? (
+                <div className="grid gap-4 md:grid-cols-2  lg:grid-cols-4 p-14">
+                    {tasks.map(task => (
+                        <Task key={task.id} task={task} />
+                    ))}
+                </div>
+            ) : (
+                <>
+                <div className="text-center h-screen w-screen flex flex-col justify-center">
+                    
+                    <h2 className="text-2xl font-semibold">No tasks available</h2>
+                    <p className="text-lg">Please check back later</p>
+                </div>
+                </>
+            )}
         </div>
-    );
-}
+    );}
 
 function Task({ task }) {
     return (

@@ -19,6 +19,17 @@ model User {
   score        Int      @default(0)
 }
 
+model UserTask {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  taskId    Int
+  score     Int
+  completed Boolean @default(false)
+  task      Task    @relation(fields: [taskId], references: [id])
+
+  @@unique([userId, taskId])
+}
+
 model Task {
   id          Int        @id @default(autoincrement())
   title       String?
@@ -29,6 +40,9 @@ model Task {
   completed   Boolean    @default(false)
   questions   Question[]
   role        String?
+  userTasks   UserTask[]
+
+  @@unique([id, userId])
 }
 
 model Question {
@@ -46,6 +60,15 @@ model Option {
   isCorrect  Boolean  @default(false)
   questionId Int
   question   Question @relation(fields: [questionId], references: [id])
+}
+
+model Answer {
+  id         Int     @id @default(autoincrement())
+  userId     Int
+  questionId Int
+  optionId   Int
+  taskId     Int
+  isCorrect  Boolean
 }
 
 model image {

@@ -12,6 +12,7 @@ const prisma = new PrismaClient();
  * and the boolean value of the answer being correct or not
  * and getting the answers by user id and is correct filter
  */
+
 router.post('/submit-task', async (req, res) => {
     const { userId, questionId, optionId, taskId } = req.body;
 
@@ -30,8 +31,8 @@ router.post('/submit-task', async (req, res) => {
         return res.status(404).json({ error: 'Option not found' });
     }
 
-     // Create answer in the database
-     const createdAnswer = await prisma.answer.create({
+    // Create answer in the database
+    const createdAnswer = await prisma.answer.create({
         data: {
             userId,
             questionId,
@@ -41,35 +42,41 @@ router.post('/submit-task', async (req, res) => {
         },
     });
 
-    let userScore = 0;
-    // If the answer is correct, increment the user's score
-    if (selectedOption.isCorrect) {
-        const score = await prisma.score.findFirst({
-            where: { userId },
-        });
+    let score = selectedOption.isCorrect ? 10 : 0;
 
-        if (score) {
-            // Update the user's score
-            await prisma.score.update({
-                where: { id: score.id },
-                data: { value: score.value + 1 },
-            });
-            userScore = score.value + 1;
-        } else {
-            // Create a new score record for the user
-            await prisma.score.create({
-                data: {
-                    value: 1,
-                    userId,
-                },
-            });
-            userScore = 1;
-        }
+    // Mark the task as completed for the user
+    const userTask = await prisma.userTask.upsert({
+        where: {
+            userId_taskId: {
+                userId: parseInt(userId, 10), // use userId from request body
+                taskId: parseInt(taskId, 10), // use taskId from request body
+            },
+        },
+        update: {
+            completed: true,
+            score: {
+                increment: score, // increment the score by the calculated score
+            },
+        },
+        create: {
+            userId: parseInt(userId, 10), // use userId from request body
+            taskId: parseInt(taskId, 10), // use taskId from request body
+            completed: true,
+            score: score, // set the score when creating a new user task
+        },
+    });
+
+    // If the answer is correct, increment the user's score
+    let user;
+    if (selectedOption.isCorrect) {
+        user = await prisma.user.update({
+            where: { id: parseInt(userId, 10) },
+            data: { score: { increment: 10 } },
+        });
     }
 
-    return res.status(201).json({ answer: createdAnswer, score: userScore });
+    return res.status(201).json({ answer: createdAnswer, score: user ? user.score : 0 });
 });
-
 router.get('/get-answers', async (req, res) => {
 
 
